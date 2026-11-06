@@ -8,51 +8,158 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<main>
-  <header>
+<svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M20 8V5a2 2 0 0 0-2-2H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14V8H6a2 2 0 0 1 0-4h12"/><path d="M20 12h-5v5h5"/></symbol>
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></symbol>
+  <symbol id="icon-transactions" viewBox="0 0 24 24"><path d="M3 7h17m-5-5 5 5-5 5M21 17H4m5-5-5 5 5 5"/></symbol>
+  <symbol id="icon-categories" viewBox="0 0 24 24"><path d="M21 14a9 9 0 1 1-11-11v11Z"/><path d="M14 3a7 7 0 0 1 7 7h-7Z"/></symbol>
+  <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="11" cy="13" r="9"/><circle cx="11" cy="13" r="5"/><path d="m11 13 8-8m-1-4v5h5"/></symbol>
+  <symbol id="icon-reports" viewBox="0 0 24 24"><path d="M3 21h18M5 17v-5h3v5m3 0V7h3v10m3 0V3h3v14"/></symbol>
+  <symbol id="icon-settings" viewBox="0 0 24 24"><path d="m9 3 1-2h4l1 2 3 2 2 1v4l-2 2v3l1 3-3 2-3-1h-3l-3 1-3-2 1-3v-3l-2-2V6l3-1Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="icon-card" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 9h20M6 15h3"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="17" rx="2"/><path d="M7 2v6m10-6v6M3 11h18"/></symbol>
+  <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="icon-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="icon-local" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8m-4-5v5m-5-12 3 3 6-6"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main-content">Ir para o conteúdo</a>
+<aside id="sidebar" class="sidebar" aria-label="Menu principal">
+  <div class="sidebar-heading">
+    <a class="sidebar-brand" href="#inicio" data-view="inicio" aria-label="Manage Wallet — Início">
+      <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"/></svg></span>
+      <span><strong>Manage Wallet</strong><small>Seu controle financeiro</small></span>
+    </a>
+    <button id="close-menu" class="icon-button close-menu" type="button" aria-label="Fechar menu">
+      <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+    </button>
+  </div>
+  <nav aria-label="Seções">
+    <a class="nav-link" href="#inicio" data-view="inicio" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#icon-home"/></svg><span>Início</span></a>
+    <a class="nav-link" href="#transacoes" data-view="transacoes"><svg class="icon" aria-hidden="true"><use href="#icon-transactions"/></svg><span>Transações</span></a>
+    <a class="nav-link" href="#categorias" data-view="categorias"><svg class="icon" aria-hidden="true"><use href="#icon-categories"/></svg><span>Categorias</span></a>
+    <a class="nav-link" href="#metas" data-view="metas"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg><span>Metas</span></a>
+    <a class="nav-link" href="#relatorios" data-view="relatorios"><svg class="icon" aria-hidden="true"><use href="#icon-reports"/></svg><span>Relatórios</span></a>
+    <a class="nav-link" href="#configuracoes" data-view="configuracoes"><svg class="icon" aria-hidden="true"><use href="#icon-settings"/></svg><span>Configurações</span></a>
+  </nav>
+  <div id="connection-state" class="local-status" data-state="loading" role="status" aria-live="polite">
+    <svg class="icon" aria-hidden="true"><use href="#icon-local"/></svg>
+    <div><strong id="connection-label">Conectando…</strong><small id="connection-detail">Abrindo seus dados locais</small></div>
+  </div>
+</aside>
+<button id="menu-backdrop" class="menu-backdrop" type="button" aria-label="Fechar menu lateral" hidden></button>
+
+<div class="workspace">
+<main id="main-content" tabindex="-1">
+  <header class="page-header">
+    <button id="menu-toggle" class="icon-button menu-toggle" type="button" aria-label="Abrir menu" aria-controls="sidebar" aria-expanded="false">
+      <svg class="icon" aria-hidden="true"><use href="#icon-menu"/></svg>
+    </button>
     <div>
       <p class="brand">◈ Manage Wallet</p>
       <p id="greeting" class="muted">Olá,</p>
       <h1>Luis Felipe</h1>
     </div>
-    <p id="current-date" class="muted"></p>
+    <label class="period-control">
+      <svg class="icon" aria-hidden="true"><use href="#icon-calendar"/></svg>
+      <span id="current-date" aria-hidden="true"></span>
+      <span class="sr-only">Mês de referência</span>
+      <input id="period" type="month" min="0001-01" max="9999-12" required aria-label="Mês de referência">
+      <svg class="icon period-chevron" aria-hidden="true"><use href="#icon-arrow"/></svg>
+    </label>
   </header>
 
+  <div class="status-bar">
+    <p id="status" class="muted" role="status" aria-live="polite">Carregando movimentações…</p>
+    <button id="retry" type="button" hidden>Tentar novamente</button>
+  </div>
+
+  <section id="view-inicio" data-view-panel="inicio" aria-labelledby="home-title" tabindex="-1">
+  <h2 id="home-title" class="sr-only">Início</h2>
   <section class="grid top" aria-label="Resumo financeiro">
     <div class="card balance">
       <p class="muted">Saldo atual</p>
       <p id="balance" class="amount">—</p>
-      <small>Receitas menos despesas de todas as movimentações registradas.</small>
+      <small id="balance-note">Saldo acumulado até o fim do período.</small>
+      <div class="balance-comparison"><span id="balance-change" class="muted">—</span><small>vs. mês anterior</small></div>
+      <figure class="balance-figure">
+        <p id="chart-empty" class="muted chart-empty">Carregando evolução do saldo…</p>
+        <svg id="balance-chart" class="chart" viewBox="0 0 640 112" preserveAspectRatio="none" role="img" aria-labelledby="chart-title chart-description" hidden>
+          <title id="chart-title">Evolução do saldo no mês</title>
+          <desc id="chart-description"></desc>
+          <polyline id="chart-line" points=""/>
+        </svg>
+        <figcaption id="chart-labels" class="chart-labels" hidden><span id="chart-start"></span><span id="chart-end"></span></figcaption>
+      </figure>
     </div>
     <div class="card">
       <h2>Ações rápidas</h2>
       <div class="actions">
-        <button type="button" data-type="receita" disabled>＋ Adicionar receita</button>
-        <button type="button" data-type="despesa" disabled>− Adicionar despesa</button>
+        <button type="button" data-type="receita" disabled><svg class="icon positive" aria-hidden="true"><use href="#icon-plus"/></svg><span>Adicionar receita</span><svg class="icon action-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+        <button type="button" data-type="despesa" disabled><svg class="icon negative" aria-hidden="true"><use href="#icon-minus"/></svg><span>Adicionar despesa</span><svg class="icon action-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+        <p class="action-preview"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg><span>Adicionar meta</span><small>Em breve</small></p>
       </div>
     </div>
   </section>
 
-  <section class="grid stats" aria-label="Totais de todas as movimentações">
-    <div class="card"><p class="muted">Receitas</p><p class="value positive" id="income">—</p></div>
-    <div class="card"><p class="muted">Despesas</p><p class="value negative" id="expense">—</p></div>
+  <section class="grid stats" aria-label="Totais financeiros">
+    <div class="card"><p class="stat-label"><svg class="icon positive" aria-hidden="true"><use href="#icon-plus"/></svg>Receitas</p><p class="value positive" id="income">—</p><small>no mês selecionado</small></div>
+    <div class="card"><p class="stat-label"><svg class="icon negative" aria-hidden="true"><use href="#icon-minus"/></svg>Despesas</p><p class="value negative" id="expense">—</p><small>no mês selecionado</small></div>
+    <div class="card"><p class="stat-label"><svg class="icon" aria-hidden="true"><use href="#icon-card"/></svg>Cartões</p><p class="value">—</p><small>Disponível em breve</small></div>
+    <div class="card"><p class="stat-label"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg>Metas acumuladas</p><p class="value">—</p><small>Disponível em breve</small></div>
   </section>
 
-  <section class="card" aria-labelledby="transactions-title">
+  <div class="grid bottom">
+    <section class="card" aria-labelledby="recent-title">
+      <div class="table-header"><h2 id="recent-title">Últimas transações</h2><a class="text-link" href="#transacoes" data-view="transacoes">Ver todas <span aria-hidden="true">→</span></a></div>
+      <ul id="recent-transactions" class="transaction-list" aria-label="Últimas transações do mês"></ul>
+      <p id="recent-empty" class="muted empty-message" hidden>Nenhuma movimentação neste mês.</p>
+    </section>
+    <section class="card goals-card" aria-labelledby="goals-title">
+      <div class="table-header"><h2 id="goals-title">Metas</h2><a class="text-link" href="#metas" data-view="metas">Ver metas <span aria-hidden="true">→</span></a></div>
+      <div class="goals-preview"><svg class="icon preview-icon" aria-hidden="true"><use href="#icon-target"/></svg><h3>Um passo para seus objetivos</h3><p class="muted">Suas metas e o progresso de cada reserva aparecerão aqui.</p><span class="coming-soon">Em breve</span></div>
+    </section>
+  </div>
+  </section>
+
+  <section id="view-transacoes" data-view-panel="transacoes" aria-labelledby="transactions-title" tabindex="-1" hidden>
+    <div class="section-heading"><div><h2 id="transactions-title">Transações</h2><p id="transactions-period" class="muted"></p></div><button id="new-transaction" class="submit" type="button" disabled><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>Nova movimentação</button></div>
+    <div class="card">
     <div class="table-header">
-      <h2 id="transactions-title">Movimentações</h2>
+      <h3>Movimentações do mês</h3>
       <input id="search" type="search" placeholder="Buscar movimentação" aria-label="Buscar movimentação">
     </div>
-    <div class="status-bar">
-      <p id="status" class="muted" role="status" aria-live="polite">Carregando movimentações…</p>
-      <button id="retry" type="button" hidden>Tentar novamente</button>
+    <ul id="transactions" class="transaction-list" aria-label="Movimentações registradas" aria-busy="true"></ul>
+    <p id="empty" class="muted empty-message" hidden>Nenhuma movimentação neste mês.</p>
     </div>
-    <ul id="transactions" aria-label="Movimentações registradas" aria-busy="true"></ul>
-    <p id="empty" class="muted" hidden>Nenhuma movimentação registrada.</p>
   </section>
 
-  <footer><p>◈ Manage Wallet</p></footer>
+  <section id="view-categorias" data-view-panel="categorias" aria-labelledby="categories-title" tabindex="-1" hidden>
+    <div class="section-heading"><div><h2 id="categories-title">Categorias</h2><p class="muted">Dê mais contexto a cada movimentação.</p></div></div>
+    <div class="card feature-preview"><svg class="icon preview-icon" aria-hidden="true"><use href="#icon-categories"/></svg><h3>Organize suas receitas e despesas</h3><p class="muted">O cadastro e a seleção de categorias estarão disponíveis em breve.</p><span class="coming-soon">Em breve</span></div>
+  </section>
+
+  <section id="view-metas" data-view-panel="metas" aria-labelledby="targets-title" tabindex="-1" hidden>
+    <div class="section-heading"><div><h2 id="targets-title">Metas</h2><p class="muted">Transforme suas reservas em objetivos.</p></div></div>
+    <div class="card feature-preview"><svg class="icon preview-icon" aria-hidden="true"><use href="#icon-target"/></svg><h3>Acompanhe cada conquista</h3><p class="muted">Em breve você poderá cadastrar objetivos, informar valores reservados e acompanhar seu progresso.</p><span class="coming-soon">Em breve</span></div>
+  </section>
+
+  <section id="view-relatorios" data-view-panel="relatorios" aria-labelledby="reports-title" tabindex="-1" hidden>
+    <div class="section-heading"><div><h2 id="reports-title">Relatórios</h2><p class="muted">Entenda como seu dinheiro se movimenta.</p></div></div>
+    <div class="card feature-preview"><svg class="icon preview-icon" aria-hidden="true"><use href="#icon-reports"/></svg><h3>Uma visão mais clara das suas finanças</h3><p class="muted">Os relatórios por período e categoria estarão disponíveis em breve. Você já pode consultar o resumo mensal no Início.</p><a class="text-link" href="#inicio" data-view="inicio">Ver resumo do mês <span aria-hidden="true">→</span></a></div>
+  </section>
+
+  <section id="view-configuracoes" data-view-panel="configuracoes" aria-labelledby="settings-title" tabindex="-1" hidden>
+    <div class="section-heading"><div><h2 id="settings-title">Configurações</h2><p class="muted">Seu controle financeiro, do seu jeito.</p></div></div>
+    <div class="card feature-preview"><svg class="icon preview-icon" aria-hidden="true"><use href="#icon-settings"/></svg><h3>Um espaço para suas preferências</h3><p class="muted">A personalização do nome exibido estará disponível em breve.</p><span class="coming-soon">Em breve</span></div>
+  </section>
+
+  <footer><p>◈ Manage Wallet</p><span>Simples, local e no seu controle.</span></footer>
 </main>
+</div>
 
 <dialog id="entry" aria-labelledby="entry-title">
   <form id="entry-form">
