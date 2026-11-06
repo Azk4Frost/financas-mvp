@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Manage Wallet</title>
+  <meta name="description" content="Controle simples de receitas, despesas e saldo financeiro.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <p class="brand">◈ Manage Wallet</p>
+      <p id="greeting" class="muted">Olá,</p>
+      <h1>Luis Felipe</h1>
+    </div>
+    <p id="current-date" class="muted"></p>
+  </header>
+
+  <section class="grid top" aria-label="Resumo financeiro">
+    <div class="card balance">
+      <p class="muted">Saldo atual</p>
+      <p id="balance" class="amount">—</p>
+      <small>Receitas menos despesas de todas as movimentações registradas.</small>
+    </div>
+    <div class="card">
+      <h2>Ações rápidas</h2>
+      <div class="actions">
+        <button type="button" data-type="receita" disabled>＋ Adicionar receita</button>
+        <button type="button" data-type="despesa" disabled>− Adicionar despesa</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid stats" aria-label="Totais de todas as movimentações">
+    <div class="card"><p class="muted">Receitas</p><p class="value positive" id="income">—</p></div>
+    <div class="card"><p class="muted">Despesas</p><p class="value negative" id="expense">—</p></div>
+  </section>
+
+  <section class="card" aria-labelledby="transactions-title">
+    <div class="table-header">
+      <h2 id="transactions-title">Movimentações</h2>
+      <input id="search" type="search" placeholder="Buscar movimentação" aria-label="Buscar movimentação">
+    </div>
+    <div class="status-bar">
+      <p id="status" class="muted" role="status" aria-live="polite">Carregando movimentações…</p>
+      <button id="retry" type="button" hidden>Tentar novamente</button>
+    </div>
+    <ul id="transactions" aria-label="Movimentações registradas" aria-busy="true"></ul>
+    <p id="empty" class="muted" hidden>Nenhuma movimentação registrada.</p>
+  </section>
+
+  <footer><p>◈ Manage Wallet</p></footer>
+</main>
+
+<dialog id="entry" aria-labelledby="entry-title">
+  <form id="entry-form">
+    <h2 id="entry-title">Adicionar receita</h2>
+    <label>Tipo
+      <select name="tipo" required>
+        <option value="receita">Receita</option>
+        <option value="despesa">Despesa</option>
+      </select>
+    </label>
+    <label>Descrição
+      <input name="description" required maxlength="80" autocomplete="off" autofocus>
+    </label>
+    <label>Valor (R$)
+      <input name="amount" type="text" inputmode="decimal" pattern="[0-9]+([,.][0-9]{1,2})?"
+             maxlength="12" placeholder="0,00" required aria-describedby="amount-help"
+             title="Informe um valor com até duas casas decimais, sem separador de milhar. Exemplo: 1234,56.">
+    </label>
+    <small id="amount-help">Exemplo: 1234,56. Máximo: R$ 999.999.999,99.</small>
+    <label>Data
+      <input name="date" type="date" min="0001-01-01" max="9999-12-31" required>
+    </label>
+    <p id="form-error" class="error" role="alert"></p>
+    <div class="form-actions">
+      <button type="button" id="cancel">Cancelar</button>
+      <button type="submit" class="submit">Salvar</button>
+    </div>
+  </form>
+</dialog>
+<script src="script.js" defer></script>
+</body>
+</html>

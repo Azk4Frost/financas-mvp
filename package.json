@@ -1,11 +1,15 @@
 {
-  "name": "backend",
+  "name": "manage-wallet",
   "version": "1.0.0",
-  "main": "app.js",
+  "private": true,
+  "main": "backend/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/app.js",
+    "dev": "node --watch backend/app.js",
+    "test": "node --test"
   },
   "type": "module",
+  "engines": { "node": ">=22.13.0" },
   "keywords": [],
   "author": "",
   "license": "ISC",
